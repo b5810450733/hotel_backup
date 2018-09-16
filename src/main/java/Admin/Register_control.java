@@ -36,43 +36,69 @@ public class Register_control {
 
     private ArrayList<User> listofUser;
 
+    protected boolean checkBTNstate = false; // false ห้ามกด confirm
+    protected int checkintsame = 0;
+
+
+    @FXML
+    public boolean checkSameuser(){
+        for (int i = 0; i < listofUser.size(); i++) {
+            if ((listofUser.get(i).getUserName() + "").equals(userNamefield.getText() + "")) { // ซ้ำหรือไม่
+                checkBTNstate = false;
+                checkintsame ++;
+                break;
+            }
+        }if (checkintsame >= 1){
+            userNamefield.setStyle("-fx-border-color: red");
+            btn_confirm.setDisable(true);
+            userNamefield.clear();
+            checkintsame = 0;
+        }else{
+            userNamefield.setStyle("-fx-border-color: green");
+            btn_confirm.setDisable(false);
+            checkBTNstate = true;
+        }
+        return checkBTNstate;
+    }
+
+    public boolean isCheckBTNstate() {
+        return checkBTNstate;
+    }
 
     @FXML
     public void checkPassword(ActionEvent event) {
-        boolean checkSame = false;
         Button b = (Button) event.getSource();
         String passwd = "" + password.getText();
         String current_passwd = "" + current_password.getText();
+        DBConnector db = new DBConnector();
+        Connection connect = db.openDatabase();
+        UserDBControl list = new UserDBControl(connect);
+        listofUser = list.readUser();
+        if (b.equals(check_btn)) {
+            checkSameuser();
+        }
         if (b.equals(btn_confirm)){
-            if (passwd.length() >= 6 && current_passwd.equals(passwd)){
+            int addLetter = 0;
+            for (int i = 0; i < emailField.getText().length(); i++) {
+                if ((emailField.getText()).charAt(i) == '@'){
+                    addLetter ++;
+                }
+            }
+            if (passwd.length() >= 6 && current_passwd.equals(passwd) && isCheckBTNstate() == true && !accountID.getText().equals("") && !firstnameField.getText().equals("")
+                    && !lastnameField.getText().equals("") && !emailField.getText().equals("") && addLetter == 1) {
                 Confirm();
+                checkBTNstate =false;
             } else if (passwd.length() < 6) {
                 wrong_passwd.setTextFill(Color.RED);
                 wrong_passwd.setText("* Minimum password length: 6");
-            }else {
+            } else {
                 if (!passwd.equals(current_passwd)) {
                     wrong_passwd.setTextFill(Color.RED);
                     wrong_passwd.setText("wrong");
-                }
-                else {
+                } else {
                     wrong_passwd.setTextFill(Color.GREEN);
                     wrong_passwd.setText("Correct");
                 }
-            }
-        }if (b.equals(check_btn)){
-            boolean checkOK = false;
-            DBConnector db = new DBConnector();
-            Connection connect = db.openDatabase();
-            UserDBControl list = new UserDBControl(connect);
-            listofUser = list.readUser();
-            for (int i = 0; i < listofUser.size() ; i++) {
-                if ((listofUser.get(i).getUserName()+"").equals(userNamefield.getText()+"")){///// เช็คหมด
-                    checkOK = true;
-                    System.out.println("Smith");
-                }
-            }if (checkOK == true){ // ถ้าซ้ำ
-                checkSame = true; // เช้คซ้ำ ==  true
-                System.out.println("renew");
             }
         }
     }
@@ -88,9 +114,9 @@ public class Register_control {
         DBConnector db = new DBConnector();
         Connection connection = db.openDatabase();
         UserDBControl userDBControl = new UserDBControl(connection);
-        User newUser = new User(accountID.getText(),userNamefield.getText(),firstnameField.getText(),lastnameField.getText(),
-                emailField.getText(),password.getText());
-        userDBControl.addUser(newUser);
+//        User newUser = new User(accountID.getText(),userNamefield.getText(),firstnameField.getText(),lastnameField.getText(),
+//                emailField.getText(),password.getText());
+//        userDBControl.addUser(newUser);
         accountID.clear();
         userNamefield.clear();
         firstnameField.clear();
@@ -115,5 +141,13 @@ public class Register_control {
             e1.printStackTrace();
         }
     }
+
+
+
+
+
+
+
+
 
 }

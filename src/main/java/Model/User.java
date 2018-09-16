@@ -5,14 +5,16 @@ public class User {
     private String userName;
     private String firstName;
     private String lastName;
+    private String phone;
     private String eMail;
     private String passWord;
 
-    public User(String iDentify, String userName, String firstName, String lastName, String eMail, String passWord) {
+    public User(String iDentify, String userName, String firstName, String lastName,String phone, String eMail, String passWord) {
         this.iDentify = iDentify;
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.phone = phone;
         this.eMail = eMail;
         this.passWord = passWord;
     }
@@ -31,6 +33,14 @@ public class User {
 
     public String getUserName() {
         return userName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public void setUserName(String userName) {
@@ -72,7 +82,7 @@ public class User {
     @Override
     public String toString() {
         return "ID= " + iDentify + "| Username= " + userName + "| Firstname= " + firstName +
-                "| Lastname= " + lastName + "| E-mail= " + eMail + "| Password= " + passWord ;
+                "| Lastname= " + lastName +"| Phone= "+ phone + "| E-mail= " + eMail + "| Password= " + passWord ;
     }
 
 

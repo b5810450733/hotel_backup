@@ -18,14 +18,15 @@ public class UserDBControl {
         boolean addResult = false;
         try {
             User newUser = user;
-            String sqlText = "INSERT INTO user_data VALUES (?,?,?,?,?,?)";
+            String sqlText = "INSERT INTO user_data VALUES (?,?,?,?,?,?,?)";
             PreparedStatement prepare = connection.prepareStatement(sqlText);
             prepare.setString(1,newUser.getiDentify());
             prepare.setString(2,newUser.getUserName());
             prepare.setString(3,newUser.getFirstName());
             prepare.setString(4,newUser.getLastName());
-            prepare.setString(5,newUser.geteMail());
-            prepare.setString(6,newUser.getPassWord());
+            prepare.setString(5,newUser.getPhone());
+            prepare.setString(6,newUser.geteMail());
+            prepare.setString(7,newUser.getPassWord());
 
             if (prepare.executeUpdate() == 1){
                 addResult = true;
@@ -54,8 +55,9 @@ public class UserDBControl {
                 user.setUserName(resultSet.getString(2));
                 user.setFirstName(resultSet.getString(3));
                 user.setLastName(resultSet.getString(4));
-                user.seteMail(resultSet.getString(5));
-                user.setPassWord(resultSet.getString(6));
+                user.setPhone(resultSet.getString(5));
+                user.seteMail(resultSet.getString(6));
+                user.setPassWord(resultSet.getString(7));
                 usersArray.add(user);
             }
         }catch (SQLException e){

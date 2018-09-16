@@ -96,7 +96,7 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Button fx:id="btn_confirm" layoutX="965.0" layoutY="626.0" mnemonicParsing="false" onAction="#checkPassword" style="-fx-background-color: #1ed66b#1ed66b; -fx-border-color: black;" text="Confirm">
+      <Button fx:id="btn_confirm" disable="true" layoutX="965.0" layoutY="626.0" mnemonicParsing="false" onAction="#checkPassword" style="-fx-background-color: #1ed66b#1ed66b; -fx-border-color: black;" text="Confirm">
          <font>
             <Font size="25.0" />
          </font>
