@@ -39,7 +39,7 @@ public class Register_control {
 
     @FXML
     public void checkPassword(ActionEvent event) {
-        boolean checkOK = false;
+        boolean checkSame = false;
         Button b = (Button) event.getSource();
         String passwd = "" + password.getText();
         String current_passwd = "" + current_password.getText();
@@ -60,15 +60,19 @@ public class Register_control {
                 }
             }
         }if (b.equals(check_btn)){
+            boolean checkOK = false;
             DBConnector db = new DBConnector();
             Connection connect = db.openDatabase();
             UserDBControl list = new UserDBControl(connect);
             listofUser = list.readUser();
             for (int i = 0; i < listofUser.size() ; i++) {
-                if (!(listofUser.get(i).getUserName()+"").equals(userNamefield.getText()+"")){
+                if ((listofUser.get(i).getUserName()+"").equals(userNamefield.getText()+"")){///// เช็คหมด
                     checkOK = true;
                     System.out.println("Smith");
                 }
+            }if (checkOK == true){ // ถ้าซ้ำ
+                checkSame = true; // เช้คซ้ำ ==  true
+                System.out.println("renew");
             }
         }
     }
