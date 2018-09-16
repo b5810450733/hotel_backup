@@ -72,7 +72,6 @@ public class Login_as_admin_control {
             stage.setTitle("Register user");
 
             Register_control controller = (Register_control) loader.getController();
-            controller.genID("110001");
 
             stage.show();
         } catch (IOException e1){

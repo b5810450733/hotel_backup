@@ -14,16 +14,16 @@ public class Main {
         Connection connection = db.openDatabase();
         UserDBControl userDBControl = new UserDBControl(connection);
 
-        User user = new User(106,"Nutty","Nut",
-                "Nuttapat","nut@gmail.com","nuttyy");
-        System.out.println(userDBControl.addUser(user));
+//        User user = new User("106","Nutty","Nut",
+//                "Nuttapat","nut@gmail.com","nuttyy");
+//        System.out.println(userDBControl.addUser(user));
 
         /////////////////////////////////////////////////////// เอาไว้อ่านข้อมูลจาก database
 
-//        ArrayList<User> userList = userDBControl.readUser();
-//        for (User i: userList) {
-//            System.out.println(i);
-//        }
+        ArrayList<User> userList = userDBControl.readUser();
+        for (User i: userList) {
+            System.out.println(i);
+        }
     }
 
 }

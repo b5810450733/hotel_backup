@@ -20,7 +20,7 @@ public class UserDBControl {
             User newUser = user;
             String sqlText = "INSERT INTO user_data VALUES (?,?,?,?,?,?)";
             PreparedStatement prepare = connection.prepareStatement(sqlText);
-            prepare.setInt(1,newUser.getiDentify());
+            prepare.setString(1,newUser.getiDentify());
             prepare.setString(2,newUser.getUserName());
             prepare.setString(3,newUser.getFirstName());
             prepare.setString(4,newUser.getLastName());
@@ -50,7 +50,7 @@ public class UserDBControl {
             resultSet = stmt.executeQuery(query);
             while (resultSet.next()){
                 user = new User();
-                user.setiDentify(resultSet.getInt(1));
+                user.setiDentify(resultSet.getString(1));
                 user.setUserName(resultSet.getString(2));
                 user.setFirstName(resultSet.getString(3));
                 user.setLastName(resultSet.getString(4));

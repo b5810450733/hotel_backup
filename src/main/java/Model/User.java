@@ -1,14 +1,14 @@
 package Model;
 
 public class User {
-    private int iDentify;
+    private String iDentify;
     private String userName;
     private String firstName;
     private String lastName;
     private String eMail;
     private String passWord;
 
-    public User(int iDentify, String userName, String firstName, String lastName, String eMail, String passWord) {
+    public User(String iDentify, String userName, String firstName, String lastName, String eMail, String passWord) {
         this.iDentify = iDentify;
         this.userName = userName;
         this.firstName = firstName;
@@ -21,11 +21,11 @@ public class User {
 
     }
 
-    public int getiDentify() {
+    public String getiDentify() {
         return iDentify;
     }
 
-    public void setiDentify(int iDentify) {
+    public void setiDentify(String iDentify) {
         this.iDentify = iDentify;
     }
 
