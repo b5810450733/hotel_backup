@@ -31,7 +31,7 @@
             <Font size="25.0" />
          </font>
       </TextField>
-      <Button layoutX="1137.0" layoutY="138.0" mnemonicParsing="false" text="Check" textFill="#3dbc26">
+      <Button fx:id="check_btn" layoutX="1137.0" layoutY="138.0" mnemonicParsing="false" onAction="#checkPassword" text="Check" textFill="#3dbc26">
          <font>
             <Font size="25.0" />
          </font>

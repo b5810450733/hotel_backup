@@ -16,6 +16,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class Register_control {
@@ -24,7 +26,7 @@ public class Register_control {
     private TextField accountID,userNamefield ,firstnameField,lastnameField,emailField;
 
     @FXML
-    private Button btn_cancle , btn_confirm ;
+    private Button btn_cancle , btn_confirm ,check_btn;
 
     @FXML
     private TextField  password , current_password ;
@@ -32,27 +34,41 @@ public class Register_control {
     @FXML
     private Label wrong_passwd ;
 
-    ArrayDatabase arrayDatabase = new ArrayDatabase();
+    private ArrayList<User> listofUser;
 
 
     @FXML
     public void checkPassword(ActionEvent event) {
-        btn_confirm = (Button) event.getSource();
+        boolean checkOK = false;
+        Button b = (Button) event.getSource();
         String passwd = "" + password.getText();
         String current_passwd = "" + current_password.getText();
-        if (passwd.length() >= 6 && current_passwd.equals(passwd)){
-            Confirm();
-        } else if (passwd.length() < 6) {
-            wrong_passwd.setTextFill(Color.RED);
-            wrong_passwd.setText("* Minimum password length: 6");
-        }else {
-            if (!passwd.equals(current_passwd)) {
+        if (b.equals(btn_confirm)){
+            if (passwd.length() >= 6 && current_passwd.equals(passwd)){
+                Confirm();
+            } else if (passwd.length() < 6) {
                 wrong_passwd.setTextFill(Color.RED);
-                wrong_passwd.setText("wrong");
+                wrong_passwd.setText("* Minimum password length: 6");
+            }else {
+                if (!passwd.equals(current_passwd)) {
+                    wrong_passwd.setTextFill(Color.RED);
+                    wrong_passwd.setText("wrong");
+                }
+                else {
+                    wrong_passwd.setTextFill(Color.GREEN);
+                    wrong_passwd.setText("Correct");
+                }
             }
-            else {
-                wrong_passwd.setTextFill(Color.GREEN);
-                wrong_passwd.setText("Correct");
+        }if (b.equals(check_btn)){
+            DBConnector db = new DBConnector();
+            Connection connect = db.openDatabase();
+            UserDBControl list = new UserDBControl(connect);
+            listofUser = list.readUser();
+            for (int i = 0; i < listofUser.size() ; i++) {
+                if (!(listofUser.get(i).getUserName()+"").equals(userNamefield.getText()+"")){
+                    checkOK = true;
+                    System.out.println("Smith");
+                }
             }
         }
     }
