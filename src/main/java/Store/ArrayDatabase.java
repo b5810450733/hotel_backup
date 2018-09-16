@@ -23,6 +23,7 @@ public class ArrayDatabase {
         return userName;
     }
 
+
     @Override
     public String toString() {
         return "ArrayDatabase{" + "userName=" + userName + '}';
